@@ -42,10 +42,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
     _setWithdrawAddresses(_payees);
   }
 
-  /*//////////////////////////////////////////////////////////////
-                         External getters
-  //////////////////////////////////////////////////////////////*/
-
   function totalMinted() external view returns (uint256) {
     return _totalMinted();
   }
@@ -53,10 +49,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
   function numberMinted(address _owner) external view returns (uint256) {
     return _numberMinted(_owner);
   }
-
-  /*//////////////////////////////////////////////////////////////
-                         Minting functions
-  //////////////////////////////////////////////////////////////*/
 
   function mint(
     uint256 _quantity,
@@ -83,10 +75,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
       }
     }
   }
-
-  /*//////////////////////////////////////////////////////////////
-                      Owner functions
-  //////////////////////////////////////////////////////////////*/
 
   function airdrop(address _to, uint256 _amount) external onlyOwner {
     if (_totalMinted() + _amount > mintRules.supply) {
@@ -122,10 +110,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
     _merkleRoot = _root;
   }
 
-  /*//////////////////////////////////////////////////////////////
-                      Overriden ERC721A
-  //////////////////////////////////////////////////////////////*/
-
   function _startTokenId() internal pure override returns (uint256) {
     return 1;
   }
@@ -133,10 +117,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
   function _baseURI() internal view override returns (string memory) {
     return baseTokenURI;
   }
-
-  /*//////////////////////////////////////////////////////////////
-                      Internal functions
-  //////////////////////////////////////////////////////////////*/
 
   function _customMint(uint256 _quantity, uint256 _freeQuantity) internal {
     uint256 _paidQuantity = _calculatePaidQuantity(msg.sender, _quantity, _freeQuantity);
@@ -170,10 +150,6 @@ contract ERC721Drop is ERC721AQueryable, PaymentSplitter, Ownable, DefaultOperat
   function _setWithdrawAddresses(address[] memory _addresses) internal {
     _withdrawAddresses = _addresses;
   }
-
-  /*//////////////////////////////////////////////////////////////
-                        DefaultOperatorFilterer
-  //////////////////////////////////////////////////////////////*/
 
   function setApprovalForAll(
     address operator,
